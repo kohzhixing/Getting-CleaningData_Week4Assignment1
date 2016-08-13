@@ -57,5 +57,7 @@ mean_z_acc_signal and sd_z_acc_signal refers respectively to the mean and standa
 
 ##data manipulation
 Each column of data from the test and training dataset are loaded into R and binded together.
+
 The binded test dataset and the binded training dataset are then appended together.
+
 Using the dplyr/summarize function, the mean and standard deviation of each variable in the dataset are computed by both subject and activity and then assembled into a tidy dataset.
