@@ -20,39 +20,39 @@ sd_feature refers to the standard deviation for ach of the 561 vector features c
 
 **mean_x_acc_reading and sd_x_acc_reading**
 
-mean_x_acc_reading and sd_x_acc_reading refers respectively to the mean and standard deviation of each accelerator reading along the x-axis.
+mean_x_acc_reading and sd_x_acc_reading refers respectively to the mean and standard deviation of each accelerator reading along the x-axis. There are 128 accelerator readings.
 
 **mean_y_acc_reading and sd_y_acc_reading**
 
-mean_y_acc_reading and sd_y_acc_reading refers respectively to the mean and standard deviation of each accelerator reading along the y-axis.
+mean_y_acc_reading and sd_y_acc_reading refers respectively to the mean and standard deviation of each accelerator reading along the y-axis.There are 128 accelerator readings.
 
 **mean_z_acc_reading and sd_z_acc_reading**
 
-mean_z_acc_reading and sd_z_acc_reading refers respectively to the mean and standard deviation of each accelerator reading along the z-axis.
+mean_z_acc_reading and sd_z_acc_reading refers respectively to the mean and standard deviation of each accelerator reading along the z-axis.There are 128 accelerator readings.
 
 **mean_x_gyro_reading and sd_x_gyro_reading**
 
-mean_x_acc_reading and sd_x_acc_reading refers respectively to the mean and standard deviation of each gyroscope reading along the x-axis.
+mean_x_acc_reading and sd_x_acc_reading refers respectively to the mean and standard deviation of each gyroscope reading along the x-axis. There are 128 gyroscope readings.
 
 **mean_y_gyro_reading and sd_y_gyro_reading**
 
-mean_y_acc_reading and sd_y_acc_reading refers respectively to the mean and standard deviation of each gyroscope reading along the y-axis.
+mean_y_acc_reading and sd_y_acc_reading refers respectively to the mean and standard deviation of each gyroscope reading along the y-axis.There are 128 gyroscope readings.
 
 **mean_z_gyro_reading and sd_z_gyro_reading**
 
-mean_z_acc_reading and sd_z_acc_reading refers respectively to the mean and standard deviation of each gyroscope reading along the z-axis.
+mean_z_acc_reading and sd_z_acc_reading refers respectively to the mean and standard deviation of each gyroscope reading along the z-axis.There are 128 gyroscope readings.
 
 **mean_x_acc_signal and sd_x_acc_signal**
 
-mean_x_acc_signal and sd_x_acc_signal refers respectively to the mean and standard deviation of each sensor acceleration signal reading along the x-axis.
+mean_x_acc_signal and sd_x_acc_signal refers respectively to the mean and standard deviation of each sensor acceleration signal reading along the x-axis.There are 128 acceleration signal readings.
 
 **mean_y_acc_signal and sd_y_acc_signal**
 
-mean_y_acc_signal and sd_y_acc_signal refers respectively to the mean and standard deviation of each sensor acceleration signal reading along the y-axis.
+mean_y_acc_signal and sd_y_acc_signal refers respectively to the mean and standard deviation of each sensor acceleration signal reading along the y-axis.There are 128 acceleration signal readings.
 
 **mean_z_acc_signal and sd_z_acc_signal**
 
-mean_z_acc_signal and sd_z_acc_signal refers respectively to the mean and standard deviation of each sensor acceleration signal reading along the z-axis.
+mean_z_acc_signal and sd_z_acc_signal refers respectively to the mean and standard deviation of each sensor acceleration signal reading along the z-axis.There are 128 acceleration signal readings.
 
 
 ##data manipulation
