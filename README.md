@@ -27,7 +27,7 @@ The run_analysis.R file contains the R script that will download the raw dataset
 
 5. Export the newly transformed dataset to a .txt file, where this new dataset consists of the average of each variable for each activity and each subject.This is done using the dplyr package, which provides the summarize and group_by functions to allow for quick computation of the average of each variable by subject and by activity.
 
-The final dataset should consists of 180 observations and 68 variable, of which the first two columns are the subject and activity columns, and 66 columns containing the average of the standard deviation and mean of each measurement collected in the study on smartphone recognition of human activity.
+The final dataset should consists of 180 observations and 68 variables, of which the first two columns are the subject and activity columns, and 66 columns containing the average of the standard deviation and mean of each measurement collected in the study on smartphone recognition of human activity.
 
 
 
