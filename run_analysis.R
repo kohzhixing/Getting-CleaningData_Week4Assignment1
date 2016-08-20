@@ -9,22 +9,6 @@ xtest<-read.table("X_test.txt")
 #ytest contains number from 1-6, with each representing 1 of the six activities performed by volunteers in the test data set
 ytest<-read.table("Y_test.txt")
 
-setwd("C:/Users/NUS/Desktop/rdata/UCI HAR Dataset/test/Inertial Signals")
-#body_acc_xtest, body_acc_ytest and body_acc_ztest represents the 3 axes of activity captured by the accelerometer in the test data set
-body_acc_xtest<-read.table("body_acc_x_test.txt")
-body_acc_ytest<-read.table("body_acc_y_test.txt")
-body_acc_ztest<-read.table("body_acc_z_test.txt")
-
-#body_gyro_xtest, body_gyro_ytest and body_gyro_ztest represents the 3 axes of activity captured by the accelerometer in the test data set
-body_gyro_xtest<-read.table("body_gyro_x_test.txt")
-body_gyro_ytest<-read.table("body_gyro_y_test.txt")
-body_gyro_ztest<-read.table("body_gyro_z_test.txt")
-
-#total_acc_xtest, total_acc_ytest and total_acc_ztest represents sensor acceleration signal for the 3 axes of activity in the test data set
-total_acc_xtest<-read.table("total_acc_x_test.txt")
-total_acc_ytest<-read.table("total_acc_y_test.txt")
-total_acc_ztest<-read.table("total_acc_z_test.txt")
-
 setwd("C:/Users/NUS/Desktop/rdata/UCI HAR Dataset/train")
 #test is subject number in the training data set
 train<-read.table("subject_train.txt")
@@ -32,122 +16,44 @@ train<-read.table("subject_train.txt")
 xtrain<-read.table("X_train.txt")
 ytrain<-read.table("Y_train.txt")
 
-setwd("C:/Users/NUS/Desktop/rdata/UCI HAR Dataset/train/Inertial Signals")
-#body_acc_xtest, body_acc_ytest and body_acc_ztest represents the 3 axes of activity captured by the accelerometer in the training data set
-body_acc_xtrain<-read.table("body_acc_x_train.txt")
-body_acc_ytrain<-read.table("body_acc_y_train.txt")
-body_acc_ztrain<-read.table("body_acc_z_train.txt")
+# binding the subject, activity and 561 vector features into one data frame for both test and training datasets
+test1<-cbind(test,ytest,xtest)
+train1<-cbind(train,ytrain,xtrain)
 
-#body_gyro_xtest, body_gyro_ytest and body_gyro_ztest represents the 3 axes of activity captured by the accelerometer in the training data set
-body_gyro_xtrain<-read.table("body_gyro_x_train.txt")
-body_gyro_ytrain<-read.table("body_gyro_y_train.txt")
-body_gyro_ztrain<-read.table("body_gyro_z_train.txt")
+# Step 1 appending the training and test datasets together into one combined data frame 
+combined<-rbind(train1, test1)
 
-#total_acc_xtest, total_acc_ytest and total_acc_ztest represents sensor acceleration signal for the 3 axes of activity in the training data set
-total_acc_xtrain<-read.table("total_acc_x_train.txt")
-total_acc_ytrain<-read.table("total_acc_y_train.txt")
-total_acc_ztrain<-read.table("total_acc_z_train.txt")
+setwd("C:/Users/NUS/Desktop/rdata/UCI HAR Dataset")
 
-#binding all the columns of the test dataset into a dataframe
-combinetest<-cbind(test, ytest,xtest,body_acc_xtest,body_acc_ytest,body_acc_ztest,body_gyro_xtest,body_gyro_ytest,body_gyro_ztest,total_acc_xtest,total_acc_ytest,total_acc_ztest)
+#Step 4 using the names from the features.txt to label the 561 columns
+features<-read.csv("features.txt",header=FALSE,sep=" ",stringsAsFactors=F)
+names(combined)<-c("subject","activity",features$V2)
 
-#binding all the columns of the training dataset into a dataframe
-combinetrain<-cbind(train,ytrain,xtrain,body_acc_xtrain,body_acc_ytrain,body_acc_ztrain,body_gyro_xtrain,body_gyro_ytrain,body_gyro_ztrain,total_acc_xtrain,total_acc_ytrain,total_acc_ztrain)
+# Step 2 extracts only the measurements on the mean and standard deviation for each measurement, only mean and std values were included, but meanFreq values were excluded
+# Alternatively, meanFreq values can be included as well, but the code below assumes that only mean and std dev values are required 
+combined1<-combined[,grep ("mean|std", names(combined))]->combined1
+combined1<-cbind(combined[,1:2],combined1)
+combined1[,-grep("freq",tolower(names(combined1)))]->combined1
 
-#appending the two dataframes into one single dataframe
-combined<-rbind(combinetest,combinetrain)
+#Step 3 Using descriptive activity names to name the activities in the data set
+combined1$activity[combined1$activity==1]<-"walking"
+combined1$activity[combined1$activity==2]<-"walking upstairs"
+combined1$activity[combined1$activity==3]<-"walking downstairs"
+combined1$activity[combined1$activity==4]<-"sitting"
+combined1$activity[combined1$activity==5]<-"standing"
+combined1$activity[combined1$activity==6]<-"laying"
 
-#generating column names for each of the columns in the single combined data frame 
-feature<-paste("feature",1:561, sep="")
-x_accelerator<-paste("x_acc_reading", 1:128,sep="")
-y_accelerator<-paste("y_acc_reading", 1:128,sep="")
-z_accelerator<-paste("z_acc_reading", 1:128,sep="")
-x_gyroscope<-paste("x_gyro_reading",1:128,sep="")
-y_gyroscope<-paste("y_gyro_reading",1:128,sep="")
-z_gyroscope<-paste("z_gyro_reading",1:128,sep="")
-x_accelerator_signal<-paste("x_acc_signal", 1:128,sep="")
-y_accelerator_signal<-paste("y_acc_signal", 1:128,sep="")
-z_accelerator_signal<-paste("z_acc_signal", 1:128,sep="")
-names(combined)<-c("subject","activity",feature,x_accelerator,y_accelerator,z_accelerator,x_gyroscope,y_gyroscope,z_gyroscope,x_accelerator_signal,y_accelerator_signal,z_accelerator_signal)
-
-
-# by Subject AND by Activity
 library(dplyr)
-#sort by ascending order for subject column and activity column
-combined<-arrange(combined,subject,activity)
-#using the group_by function, group combined data frame by both subject and by activity
-by_subject_activity<-group_by(combined,subject,activity)
+combined1<-arrange(combined1,subject)
+combined1$activity<-as.factor(combined1$activity)
 
-# generate mean and standard deviation by subject and activity 
-data2<-summarise_each(by_subject_activity,funs(mean))
-data3<-summarise_each(by_subject_activity,funs(sd))
+# Step 5 create a second, independent tidy data set with the average of each variable for each activity and each subject.
+by_subject_activity<-group_by(combined1,subject,activity)
+combined2<-summarise_each(by_subject_activity,funs(mean))
 
-# generating names for the columns of mean and standard deviation values
-name2<-paste("mean_",names(data2)[-1:-2],sep="")
-name3<-paste("sd_",names(data3)[-1:-2],sep="")
-names(data2)<-c("subject","activity",name2)
-names(data3)<-c("subject","activity",name3)
+# include the expression "meanof_" to imply that values in this second dataset refers are all average values of each variable by subject and activity.
+names(combined2)[-1:-2]<-paste("meanof_",names(combined2)[-1:-2],sep="")
 
-#merge the two dataframes containing mean and standard deviation values from the two dataframes(data2 and data3)
-newtable<-merge(data2,data3,by=c("subject","activity"))
-#rearranging the columns so that mean and standard deviation values for each variable is side by side in the dataframe
-a<-3:1715
-b<-1716:3428
-g<-c(rbind(a,b))
-g<-c(1,2,g)
-newtable1<-newtable[,g]
-#sort dataframe with mean and standard deviation values by subject and activity in ascending order
-# mean and standard deviation values for each subject and activity i.e. 30subjects x 6 activities = 180 rows
-newtable1<-arrange(newtable1,subject,activity)
-#writing the dataset to a txt file for submission
-write.table(newtable1,file="Getting&CleaningData_Week4Assignment.txt", row.names=F,sep=";")
-
-
-###Only by Subject
-#sort by only subject using the dplyr/group_by function
-by_subject<-group_by(combined,subject)
-#generate mean and standard deviation for each variable
-data4<-summarise_each(by_subject,funs(mean))
-data5<-summarise_each(by_subject,funs(sd))
-#generating names for the columns in dataframe
-name4<-paste("mean_",names(data4)[-1:-2],sep="")
-name5<-paste("sd_",names(data5)[-1:-2],sep="")
-names(data4)<-c("subject","activity",name4)
-names(data5)<-c("subject","activity",name5)
-#removing unwanted columns
-data4[,2]<-NULL
-data5[,2]<-NULL
-#merging the mean and standard deviation values from the two dataframes (data 4 and data5)
-newtable2<-merge(data4,data5,by="subject")
-#rearranging the columns so that the mean and standard deviation columns for each variable are side by side in the dataframe.
-x<-2:1714
-y<-1715:3427
-z<-c(rbind(x,y))
-z<-c(1,z)
-newtable2<-newtable2[,z]
-
-
-
-###Only by Activity
-#sort by only activity using the dplyr/group_by function
-by_activity<-group_by(combined,activity)
-#generate mean and standard deviation for each variable
-data6<-summarise_each(by_activity,funs(mean))
-data7<-summarise_each(by_activity,funs(sd))
-#generating names for the columns in dataframe
-name6<-paste("mean_",names(data6)[-1:-2],sep="")
-name7<-paste("sd_",names(data7)[-1:-2],sep="")
-names(data6)<-c("activity","subject",name6)
-names(data7)<-c("activity","subject",name7)
-#removing unwanted columns
-data6[,2]<-NULL
-data7[,2]<-NULL
-#merging the mean and standard deviation values from the two dataframes (data 6 and data7)
-newtable3<-merge(data6,data7,by="activity")
-#rearranging the columns so that the mean and standard deviation columns for each variable are side by side in the dataframe.
-x<-2:1714
-y<-1715:3427
-z<-c(rbind(x,y))
-z<-c(1,z)
-newtable3<-newtable3[,z]
+# export tidy dataset into a txt file
+write.table(combined2,"Getting&CleaningData_Week4Assignment_dataset.txt")
 

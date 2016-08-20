@@ -1,63 +1,33 @@
 # Getting-CleaningData_Week4Assignment1
-##Codebook
-**subject** 
-
-subject refers to subject in the human activity recognition experiments carried out with 30 volunteers. subject is coded 1-30 as there are 30 volunteers. Each number refers to a unique volunteer
-
-**activity**
-
-activity refers to 1 of 6 activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING)
-activity is coded 1-6, with each number representing one unique human activity.
-
-**mean_feature**
-
-mean_feature refers to the mean for each of the 561 vector features capturing by calculating variables from the time and frequency domain for each subject and each activity
-
-**sd_feature**
-
-sd_feature refers to the standard deviation for ach of the 561 vector features capturing by calculating variables from the time and frequency domain for each subject and each activity
 
 
-**mean_x_acc_reading and sd_x_acc_reading**
+The following submission consists of the
 
-mean_x_acc_reading and sd_x_acc_reading refers respectively to the mean and standard deviation of each accelerator reading along the x-axis. There are 128 accelerator readings.
+1. README.md file (this file)
+2. An R script (run_analysis.R file)
+3. A Codebook.md file 
 
-**mean_y_acc_reading and sd_y_acc_reading**
+The README file aims to briefly explains the different parts of the submission in the github repository.
 
-mean_y_acc_reading and sd_y_acc_reading refers respectively to the mean and standard deviation of each accelerator reading along the y-axis.There are 128 accelerator readings.
+**CodeBook.md**
 
-**mean_z_acc_reading and sd_z_acc_reading**
+The codebook explains the various variables produced by the dataset. The codebook explains the variables in the raw dataset, as well the transformed variables that are produced in the dataset that is produced by the R script.
 
-mean_z_acc_reading and sd_z_acc_reading refers respectively to the mean and standard deviation of each accelerator reading along the z-axis.There are 128 accelerator readings.
+**run_analysis.R**
+The run_analysis.R file contains the R script that will download the raw dataset on smartphone-based recognition of human activites from the UCI machine learning repository.The R script will: 
 
-**mean_x_gyro_reading and sd_x_gyro_reading**
+1. Merge the training and the test sets to create one data set.The R script downloads the test subject, human activity identifier number and a vector of 561 features captured in the study for both the training and test datasets and combines them using the rbind (binding of rows) and cbind (binding of columns) commands.   
 
-mean_x_acc_reading and sd_x_acc_reading refers respectively to the mean and standard deviation of each gyroscope reading along the x-axis. There are 128 gyroscope readings.
+2. Extract the columns from the 561 columns that provide the mean and standard deviation for each measurement.
 
-**mean_y_gyro_reading and sd_y_gyro_reading**
+3. Uses descriptive activity names to name the activities in the data set; i.e. replaces the human activity identified number with string descriptions for e.g. "walking" or "walking upstairs etc"
 
-mean_y_acc_reading and sd_y_acc_reading refers respectively to the mean and standard deviation of each gyroscope reading along the y-axis.There are 128 gyroscope readings.
+4. Appropriately labels the data set with descriptive variable names.The R script uses the column labels provided by the UCI database to appropriately name the columns in the dataset.  
 
-**mean_z_gyro_reading and sd_z_gyro_reading**
+5. Export the newly transformed dataset to a .txt file, where this new dataset consists of the average of each variable for each activity and each subject.This is done using the dplyr package, which provides the summarize and group_by functions to allow for quick computation of the average of each variable by subject and by activity.
 
-mean_z_acc_reading and sd_z_acc_reading refers respectively to the mean and standard deviation of each gyroscope reading along the z-axis.There are 128 gyroscope readings.
-
-**mean_x_acc_signal and sd_x_acc_signal**
-
-mean_x_acc_signal and sd_x_acc_signal refers respectively to the mean and standard deviation of each sensor acceleration signal reading along the x-axis.There are 128 acceleration signal readings.
-
-**mean_y_acc_signal and sd_y_acc_signal**
-
-mean_y_acc_signal and sd_y_acc_signal refers respectively to the mean and standard deviation of each sensor acceleration signal reading along the y-axis.There are 128 acceleration signal readings.
-
-**mean_z_acc_signal and sd_z_acc_signal**
-
-mean_z_acc_signal and sd_z_acc_signal refers respectively to the mean and standard deviation of each sensor acceleration signal reading along the z-axis.There are 128 acceleration signal readings.
+The final dataset should consists of 180 observations and 68 variable, of which the first two columns are the subject and activity columns, and 66 columns containing the average of the standard deviation and mean of each measurement collected in the study on smartphone recognition of human activity.
 
 
-##data manipulation
-Each column of data from the test and training dataset are loaded into R and binded together.
 
-The binded test dataset and the binded training dataset are then appended together.
-
-Using the dplyr/summarize function, the mean and standard deviation of each variable in the dataset are computed by both subject and activity and then assembled into a tidy dataset.
+ 
