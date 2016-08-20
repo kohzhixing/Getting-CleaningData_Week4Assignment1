@@ -14,6 +14,7 @@ The README file aims to briefly explains the different parts of the submission i
 The codebook explains the various variables produced by the dataset. The codebook explains the variables in the raw dataset, as well the transformed variables that are produced in the dataset that is produced by the R script.
 
 **run_analysis.R**
+
 The run_analysis.R file contains the R script that will download the raw dataset on smartphone-based recognition of human activites from the UCI machine learning repository.The R script will: 
 
 1. Merge the training and the test sets to create one data set.The R script downloads the test subject, human activity identifier number and a vector of 561 features captured in the study for both the training and test datasets and combines them using the rbind (binding of rows) and cbind (binding of columns) commands.   
